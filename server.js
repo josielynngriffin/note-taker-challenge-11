@@ -48,6 +48,28 @@ app.get('/api/notes', (req,res) => {
 });
 
 //POST /api/notes
+app.post('/api/notes', (req, res) => {
+  console.log(`${req.method} request recieved`);
+  const note = req.body;
+  if (note.title && note.text) {
+      let id = uuid.v4();
+      const newNote = {
+          title:note.title,
+          text:note.text,
+          id,
+      };
+      readAndAppend(newNote, './db/db.json');
+      let response = {
+          status: 'New note successful',
+          body: newNote,
+      };
+      res.json(response);
+      console.log(res.json(response))
+  } else {
+      res.json('Error in posting new note.')
+  }
+  
+});
 //should recieve new note to save on request body, add it to db.json, then return the new note to the client
 //give unique id with uuid
 const PORT = process.env.PORT || 3000;
