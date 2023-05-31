@@ -57,4 +57,30 @@ router.post('/', (req, res) => {
   
 });
 
+//DELETE route
+router.delete('/:id', (req, res) => {
+    //read all of the notes from the db.json file, remove the note with given id, then rewrite to the correct file
+    console.log(`${req.params.id} is deleting`);
+    //readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./db/db.json', 'utf-8').then((data) => {
+        const notes = JSON.parse(data);
+        let found = notes.some(note => {
+            /*console.log('note id ' + note.id + typeof note.id);
+            console.log('req param ' + (req.params.id) + typeof req.params.id);
+            console.log(note.id === req.params.id)*/
+            return note.id === req.params.id});
+        //console.log(found);
+        
+        if (found){
+            const delNotes = notes.filter(note => note.id !== req.params.id);
+            writeToFile('./db/db.json', delNotes);
+            return res.json(delNotes);
+        }else{
+            res.status(400).json({msg : `Note with id of ${req.params.id} not found`})
+        };
+        
+    });
+    
+});
+
 module.exports = router;
