@@ -27,7 +27,8 @@ For this assignment, I was given starter code that had a pre-built frontend of a
 - To delete a note, click the delete icon next to the saved note you wish to delete.
 
 ## Screenshots
-
+![Home](./public/assets/img/homepage.png)
+![Notes Page](./public/assets/img/notespage.png)
 ## Credits
 [Starter Code](https://github.com/coding-boot-camp/miniature-eureka)
 
